@@ -1,0 +1,110 @@
+---
+title: Introduction to S1Vo
+description: Discover S1Vo, your default documentation space for organizing and managing all project documentation with ease and efficiency.
+---
+
+## Overview
+
+S1Vo provides a centralized hub for your project documentation. You create, organize, and collaborate on docs without the hassle of scattered files or complex tools. Build knowledge bases that scale with your team, featuring search, versioning, and seamless integrations.
+
+<Callout kind="info">
+S1Vo supports Markdown, rich embeds, and custom workflows to streamline your documentation process.
+</Callout>
+
+## Key Benefits for Project Teams
+
+S1Vo delivers value through simplicity and power. Choose your focus:
+
+<Tabs>
+  <Tab title="Teams" icon="users">
+    Collaborate in real-time with version history and comments. Assign roles to control access.
+  </Tab>
+  <Tab title="Developers" icon="code">
+    Integrate with Git for automatic doc updates. Use APIs to automate content management.
+  </Tab>
+  <Tab title="Managers" icon="bar-chart">
+    Track doc engagement with analytics. Generate reports on most-viewed sections.
+  </Tab>
+</Tabs>
+
+## Core Features at a Glance
+
+Explore S1Vo's essential capabilities:
+
+<Columns cols={3}>
+  <Card title="Dynamic Search" icon="search" href="#search">
+    Find content instantly across your entire knowledge base.
+  </Card>
+  <Card title="Version Control" icon="git-branch" href="#versions">
+    Roll back changes and maintain doc history effortlessly.
+  </Card>
+  <Card title="Embed & Integrate" icon="link" href="#integrations">
+    Pull in diagrams, videos, and live data from external sources.
+  </Card>
+</Columns>
+
+## Quick Start Guide
+
+Get up and running in minutes:
+
+<Steps>
+  <Step title="Create Account" icon="user-plus">
+    Visit `https://s1vo.com` and sign up with your email.
+  </Step>
+  <Step title="Set Up Workspace" icon="settings">
+    Name your project space and invite team members.
+  </Step>
+  <Step title="Publish First Doc" icon="file-text">
+    Write in Markdown and hit publish.
+  </Step>
+</Steps>
+
+Here is a simple example to embed S1Vo docs in your app:
+
+<CodeGroup tabs="JavaScript,Python">
+  ```javascript
+  const s1vo = require('s1vo-sdk');
+  
+  async function embedDoc(docId) {
+    const embed = await s1vo.embed(docId, {
+      theme: 'light',
+      apiKey: 'YOUR_API_KEY'
+    });
+    document.getElementById('doc-container').innerHTML = embed;
+  }
+  
+  embedDoc('project-intro');
+  ```
+  ```python
+  import s1vo
+  
+  async def embed_doc(doc_id):
+      embed = s1vo.embed(doc_id, theme='light', api_key='YOUR_API_KEY')
+      return embed.html
+  
+  embed_doc('project-intro')
+  ```
+</CodeGroup>
+
+## Quick Navigation
+
+Jump to key sections:
+
+<Columns cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Build your first doc space.
+  </Card>
+  <Card title="Authentication" icon="lock" href="/authentication">
+    Secure your content.
+  </Card>
+  <Card title="API Reference" icon="api" href="/api">
+    Programmatic access.
+  </Card>
+  <Card title="Changelog" icon="git-commit" href="/changelog">
+    What's new.
+  </Card>
+</Columns>
+
+<Callout kind="tip">
+Ready to dive deeper? Start with the [Quickstart](/quickstart) guide for hands-on setup.
+</Callout>

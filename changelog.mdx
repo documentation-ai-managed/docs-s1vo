@@ -1,0 +1,134 @@
+---
+title: Changelog
+description: Stay informed about the latest updates, new features, and improvements in S1Vo.
+---
+
+## Recent Updates
+
+Stay current with S1Vo's evolution. You receive automatic updates in your dashboard, but check here for detailed release notes, migration guides, and known issues.
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added real-time collaboration on documentation pages, enabling multiple users to edit simultaneously.
+- Introduced webhook support for integrating S1Vo with external tools like Slack and GitHub.
+
+## Improvements
+
+- Enhanced search performance by `>50%` with new indexing algorithms.
+- Updated UI components for better mobile responsiveness.
+
+## Bug Fixes
+
+- Fixed intermittent sync issues when importing from Git repositories.
+- Resolved authentication errors during long-running export operations.
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Launched custom domains for published documentation sites.
+- Added version history with diff viewer for tracking changes.
+
+## Bug Fixes
+
+- Corrected rendering issues with Mermaid diagrams containing complex nodes.
+- Patched security vulnerability in API token handling (CVE-2024-XXXX).
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["breaking", "feature"]}>
+
+## Breaking Changes
+
+- Removed legacy Markdown parser; migrate to the new engine for full feature support.
+
+## New Features
+
+- Core documentation workspace with page organization and search.
+- API endpoints for programmatic document management at `https://api.example.com/v1/docs`.
+
+## Initial Setup
+
+- Basic authentication via API keys.
+
+</Update>
+
+## Upgrade Instructions
+
+Follow these steps to upgrade S1Vo smoothly. Back up your workspace first.
+
+<Steps>
+  <Step title="Check Compatibility" icon="check-circle">
+
+Review the release notes above for breaking changes. Test in a staging environment.
+
+  </Step>
+  <Step title="Update Client" icon="download">
+    
+<CodeGroup tabs="npm,yarn">
+````bash
+npm install s1vo@latest
+````
+````bash
+yarn add s1vo@latest
+````
+</CodeGroup>
+
+  </Step>
+  <Step title="Migrate Config" icon="settings">
+
+Update your config file:
+
+````json
+{
+  "apiKey": "YOUR_API_KEY",
+  "endpoint": "https://api.example.com/v1"
+}
+````
+
+  </Step>
+  <Step title="Restart Service" icon="refresh-cw">
+
+Run `s1vo restart` and verify at `https://dashboard.example.com`.
+
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+Subscribe to our RSS feed or join the Discord community for instant notifications on new releases.
+</Callout>
+
+## Next Steps
+
+Explore these resources to leverage the latest features.
+
+<Columns cols={3}>
+  <Card title="Quickstart" icon="zap" href="/quickstart">
+    Get started in minutes with your first doc space.
+  </Card>
+  <Card title="API Reference" icon="code" href="/authentication">
+    Integrate S1Vo via our REST API.
+  </Card>
+  <Card title="Custom Domains" icon="globe" href="/introduction">
+    Publish your docs on your own domain.
+  </Card>
+</Columns>
+
+<Expandable title="Full Migration Guide for v1.0.0" default-open="false">
+
+If upgrading from beta, replace `{legacyParser}` with the new engine:
+
+````javascript
+// Old
+const parser = legacyParser.parse(md);
+
+// New
+import { modernParser } from 's1vo';
+const result = modernParser(md);
+````
+
+</Expandable>

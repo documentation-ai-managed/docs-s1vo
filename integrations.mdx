@@ -1,0 +1,157 @@
+---
+title: Integrations
+description: Learn how to connect S1Vo with external tools and services to streamline your documentation workflow.
+---
+
+## Overview
+
+Connect S1Vo to your favorite tools to automate workflows, sync content, and receive real-time notifications. Supported integrations include third-party apps like Slack and Zapier, version control systems such as GitHub and GitLab, webhooks for custom notifications, and export/import for data portability.
+
+<Callout kind="tip">
+  Start with version control sync to keep your docs in line with code changes, then add webhooks for team alerts.
+</Callout>
+
+## Available Integrations
+
+<Columns cols={2}>
+  <Card title="Third-Party Apps" icon="plug" href="#third-party-apps">
+    Connect Slack, Zapier, and more for automated workflows.
+  </Card>
+  <Card title="Version Control" icon="git-branch" href="#version-control">
+    Sync with GitHub or GitLab repositories.
+  </Card>
+  <Card title="Webhooks" icon="zap" href="#webhooks">
+    Set up incoming and outgoing webhooks.
+  </Card>
+  <Card title="Export/Import" icon="upload" href="#export-import">
+    Migrate data in JSON, Markdown, or CSV formats.
+  </Card>
+</Columns>
+
+## Third-Party App Connections
+
+Integrate S1Vo with no-code tools to trigger actions on doc updates.
+
+<Tabs>
+  <Tab title="Slack" icon="message-circle">
+    <Steps>
+      <Step title="Create App" icon="settings">
+        In Slack, create an app and generate an incoming webhook URL.
+      </Step>
+      <Step title="Add to S1Vo" icon="plus">
+        Navigate to Settings > Integrations > Slack, paste your webhook URL.
+      </Step>
+      <Step title="Test" icon="play">
+        Publish a doc update to verify notifications in your Slack channel.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Zapier" icon="zap">
+    Use Zapier's S1Vo trigger for doc events.
+    ```javascript
+    // Example Zapier webhook payload from S1Vo
+    {
+      "event": "doc.updated",
+      "doc_id": "doc_123abc",
+      "user_id": "user_456def"
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Version Control System Sync
+
+Keep documentation in sync with your Git repositories.
+
+<CodeGroup tabs="GitHub,GitLab">
+  ```bash
+  # GitHub App Installation
+  # 1. Go to S1Vo Settings > Integrations > GitHub
+  # 2. Authorize the GitHub App
+  # 3. Select repos to sync (e.g., docs folder)
+  curl -X POST https://api.example.com/v1/integrations/github \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -d '{"repo": "your-org/docs", "branch": "main"}'
+  ```
+  ```bash
+  # GitLab Project Integration
+  curl -X POST https://api.example.com/v1/integrations/gitlab \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -d '{"project_id": 12345, "branch": "main"}'
+  ```
+</CodeGroup>
+
+<Callout kind="info">
+  Sync pulls changes every 5 minutes or on webhook push for near real-time updates.
+</Callout>
+
+## Webhook Setup
+
+Configure webhooks to send doc events to your endpoint.
+
+<ParamField path="webhook_url" param-type="string" required="true">
+  Your secure HTTPS endpoint, e.g., `https://your-webhook-url.com/s1vo`.
+</ParamField>
+
+<ParamField header="S1Vo-Signature" param-type="string" required="false">
+  HMAC SHA-256 signature for verification using your secret.
+</ParamField>
+
+<Steps>
+  <Step title="Create Webhook" icon="plus">
+    In S1Vo dashboard, go to Settings > Webhooks > New Webhook.
+  </Step>
+  <Step title="Configure Events" icon="list">
+    Select events like `doc.published` or `doc.updated`.
+  </Step>
+  <Step title="Verify Endpoint">
+    ```javascript
+    // Node.js webhook verifier
+    const crypto = require('crypto');
+    function verifySignature(payload, signature, secret) {
+      const hmac = crypto.createHmac('sha256', secret);
+      hmac.update(payload);
+      return hmac.digest('hex') === signature.replace('sha256=', '');
+    }
+    ```
+  </Step>
+</Steps>
+
+## Export and Import Options
+
+Export your docs for backups or migration, and import from other platforms.
+
+<Tabs>
+  <Tab title="Export" icon="download">
+    ```bash
+    # Export all docs as Markdown
+    curl -X GET "https://api.example.com/v1/export/markdown?all=true" \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -o s1vo-docs.zip
+    ```
+  </Tab>
+  <Tab title="Import" icon="upload">
+    Supports Markdown, JSON, and CSV.
+    ```bash
+    # Import Markdown files
+    curl -X POST https://api.example.com/v1/import/markdown \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -F "files=@docs.zip"
+    ```
+  </Tab>
+</Tabs>
+
+<Expandable title="Advanced: Custom Webhook Events" default-open="false">
+  Customize payloads with filters for specific doc types or users.
+</Expandable>
+
+## Next Steps
+
+<Columns cols={2}>
+  <Card title="API Reference" icon="code" href="/authentication">
+    Dive into full API for custom integrations.
+  </Card>
+  <Card title="Troubleshooting" icon="help-circle" href="/quickstart">
+    Common issues and solutions.
+  </Card>
+</Columns>
